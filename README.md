@@ -247,17 +247,97 @@ from walmartsales;
 
 *Mandalay is the best performing city, in terms of revenue generated*
 
-10.  What is the city with the highest revenue?
+10.  What product line had the highest VAT?
    ```MySQL
-   select city, sum(total) as revenue
+   select product_line, sum(VAT) 
    from walmartsales
-   group by city
-   order by revenue desc;
+   group by product_line
+   order by sum(VAT) desc;
    ```
-![image](https://github.com/user-attachments/assets/326c335d-3e6e-42fb-a0dc-7c73805684b4)
+![image](https://github.com/user-attachments/assets/8aa5ae5e-f3c6-4299-81e8-72dde04b33d1)
 
-*Naypyitaw is the best performing city, in terms of revenue generated*
+*Food and beverage is the product line with the highest VAT*
 
-*Mandalay is the best performing city, in terms of revenue generated*
+*Health and beauty is the product line with the lowest VAT*
+
+11. Fetch each product line and add a column to those product line showing "Good", "Bad". Good if it is greater than average sales
+    
+    ```MySQL
+    create temporary table walmartsalestemp1
+    (select product_line, sum(quantity)
+    from walmartsales
+    group by product_line
+    order by sum(quantity));
+    -- creates and displays a simple temporary table showing the distinct product lines and the total number of goods sold for each
+    ```
+    
+    ```MySQL
+    select avg(`sum(quantity)`)
+    from walmartsalestemp1;
+    -- displays the average value (912.000) of the total goods sold in the table above this one 
+    ```
+    ![image](https://github.com/user-attachments/assets/c801f4df-29ca-498a-abb1-f5a5b63aa8bf)
+
+    ```MySQL
+    select product_line,`sum(quantity)` as total_quantity,
+    case
+	when `sum(quantity)` > '912.0000'
+   	then 'Good'
+   	else 'Bad'
+   	end as sales_performance
+    from walmartsalestemp1
+    group by product_line, `sum(quantity)`
+    order by `sum(quantity)` desc;
+    -- displays the result as required
+    ```
+    ![image](https://github.com/user-attachments/assets/00254bd6-539d-44a0-9d82-76fb0a9b8fcf)
+    
+12. Which branch sold more products than average product sold?
+    
+     ```MySQL
+     create temporary table temp2 (
+     select branch, sum(quantity) as total_product_sold
+     from walmartsales
+     group by branch);
+     -- Creates a temporary table showing each branch with the total number of goods sold per branch
+     ```
+     
+     ```MySQL
+     select avg(total_product_sold)
+     from temp2;
+     -- displays the avg_product_sold value as '1824.0000'
+     ```
+     ![image](https://github.com/user-attachments/assets/0e790f20-ae61-4112-8c13-fd64ea480b12)
+
+     ```MySQL
+     select *
+     from temp2
+     where total_product_sold > '1824.0000';
+     -- displays the result as required
+     ```
+     ![image](https://github.com/user-attachments/assets/28e13171-56e3-4b44-b8f6-750e06033c3d)
 
 
+13. What is the most common product line by gender?
+    
+     ```MySQL
+     select gender, product_line, count(product_line) as head_count
+     from walmartsales
+     group by  gender, product_line
+     order by gender, head_count desc;
+     -- Females preferred "Fashion accessories" and had 96 customers
+     -- Males preferred "Health and beauty"alter and had 88 customers
+     ```
+     ![image](https://github.com/user-attachments/assets/9de9ef44-bb64-4ac6-9fa0-875873e32c6c)
+
+14. What is the average rating for each product line?
+    
+    ```MySQL
+    select product_line, avg(rating)
+    from walmartsales
+    group by product_line
+    order by avg(rating) desc;
+    ```
+    
+
+     
