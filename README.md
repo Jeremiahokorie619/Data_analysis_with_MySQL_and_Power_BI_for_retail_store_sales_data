@@ -338,6 +338,112 @@ from walmartsales;
     group by product_line
     order by avg(rating) desc;
     ```
+    ![image](https://github.com/user-attachments/assets/4487df2a-bbea-4e51-b979-3713089947b1)
+
+15.  How many unique customer types does the data have?
+    
+     ```MySQL
+     select distinct(customer_type)
+     from walmartsales;
+     ```
+     ![image](https://github.com/user-attachments/assets/2b39f0eb-88f9-48da-82d4-0845377e918b)
+
+
+16. How many unique payment methods does the data have and what are they?
+    
+    ```MySQL
+    select distinct(payment_method)
+    from walmartsales;
+    ```
+    ![image](https://github.com/user-attachments/assets/27d767a9-3936-4dd9-b6af-06c8f5692f1a)
+
+17. What is the most common customer type?
+    
+    ```MySQL
+    select distinct(payment_method)
+    from walmartsales;
+    ```
+    ![image](https://github.com/user-attachments/assets/27d767a9-3936-4dd9-b6af-06c8f5692f1a)
+    
+    *There are 499 customers that are Member customer type*
+    
+    *There are 496 customers that are Normal customer type*
+    
+18. Which customer_type buys the most?
+    
+    ```MySQL
+    select customer_type, sum(quantity) as total_qty_purchased
+    from walmartsales
+    group by customer_type
+    order by sum(quantity) desc;
+    ```
+    ![image](https://github.com/user-attachments/assets/78393bf9-f72e-4077-9f04-b3a96610a582)
+ 
+19. What is the gender of most of the customers?
+    
+    ```MySQL
+    select gender, count(gender) as gender_count
+    from walmartsales
+    group by gender
+    order by count(gender) desc;
+    ```
+    ![image](https://github.com/user-attachments/assets/e8c9550b-00f7-43ff-b687-59f182f27a22)
+
+20. What is the gender distribution per branch?
+    ```MySQL
+    select branch, gender, count(gender)
+    from walmartsales
+    group by branch, gender
+    order by branch;
+    ```
+   ![image](https://github.com/user-attachments/assets/769ab039-2019-47a8-a4ab-d60d7fbf7aac)
+
+21. What time of the day do customer give most ratings?
+    ```MySQL
+    select time_of_day, avg(rating)
+    from walmartsales
+    group by time_of_day
+    order by avg(rating) desc;
+    ```
+   ![image](https://github.com/user-attachments/assets/8619534f-b167-4304-ba85-fdabeb269c94)
+
+22. What time of the day do customer give most ratings per branch?
+    ```MySQL
+    select time_of_day,branch, avg(rating)
+    from walmartsales
+    group by time_of_day, branch
+    order by branch, avg(rating) desc;
+    ```
+    ![image](https://github.com/user-attachments/assets/b47b263e-1ab5-484b-b546-2677e5e6a1de)
+
+23. What day of the week has the best average ratings?
+    ```MySQL
+    select day_name, avg(rating)
+    from walmartsales
+    group by day_name
+    order by avg(rating) desc;
+    ```
+    ![image](https://github.com/user-attachments/assets/69ffb466-7f17-4598-bc35-02ade196a7d3)
+
+24. What day of the week has the best average ratings per branch?
+    ```MySQL
+    select branch,day_name,  avg(rating) as max_avg_rating
+    from walmartsales
+    group by branch, day_name
+    order by branch, avg(rating) desc;
+    ```
+    ![image](https://github.com/user-attachments/assets/69ffb466-7f17-4598-bc35-02ade196a7d3)
     
 
-     
+#### **STEP 6: Design Dashboard to visualize findings**
+
+![image](https://github.com/user-attachments/assets/70bece36-5423-4e93-b835-9536b3457f21)
+
+
+
+#### KEY INSIGHTS AND RECOMMENDATIONS
+
+# END
+
+
+
