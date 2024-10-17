@@ -103,7 +103,7 @@ The blank result shows that there are no duplicated invoice id(primary key) in t
 select time,
 case
 	when `time` between '00:00:00' and '12:00:00' then 'Morning'
-    when `time` between '12:01:00' and '16:00:00' then 'Afternoon'
+    	when `time` between '12:01:00' and '16:00:00' then 'Afternoon'
     else 'Evening'
 end as time_of_day
 from walmartsales; -- this query displays the different time of day
